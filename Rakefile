@@ -2,15 +2,13 @@ require 'rake'
 require 'rspec/core/rake_task'
 
 desc "Run all specs"
-RSpec::Core::RakeTask.new() do |t|
-end
+RSpec::Core::RakeTask.new(:test)
 
-task :default => :spec
+task :default => :test
 
 ######################################################
 
 require 'rake'
-require 'rake/testtask'
 require 'rake/clean'
 require 'rubygems'
 require 'rubygems/package_task'
@@ -28,11 +26,4 @@ task :uninstall => [ :clean ] do
 	sh %{sudo gem uninstall #{name}}
 end
 
-Rake::TestTask.new do |t|
-	t.libs << "spec"
-	t.test_files = FileList['spec/*_spec.rb']
-	t.verbose = true
-end
-
 CLEAN.include [ 'pkg', '*.gem', '.config' ]
-
