@@ -149,6 +149,9 @@ mailing list: ponyrb@googlegroups.com
 
 == Releases
 
+1.4.1
+* Update gemfile
+
 1.4
 * Updated docs
 
