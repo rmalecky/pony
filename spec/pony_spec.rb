@@ -140,6 +140,7 @@ describe Pony do
       mail = Pony.build_mail(:attachments => {"foo.txt" => "content of foo.txt"}, :body => 'test')
       mail.parts.length.should == 2
       mail.parts.first.to_s.should =~ /Content-Type: text\/plain/
+      mail.attachments.first.content_id.should == "<foo.txt@#{Socket.gethostname}>"
     end
 
     it "suggests mime-type" do

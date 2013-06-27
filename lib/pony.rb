@@ -1,5 +1,6 @@
 require 'mail'
 require 'base64'
+require 'socket'
 
 # = The express way to send email in Ruby
 #
@@ -212,6 +213,7 @@ module Pony
       else
         mail.attachments[name] = body
       end
+      mail.attachments[name].add_content_id("<#{name}@#{Socket.gethostname}>")
     end
 
     (options[:headers] ||= {}).each do |key, value|
