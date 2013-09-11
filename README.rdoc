@@ -148,6 +148,9 @@ mailing list: ponyrb@googlegroups.com
 
 
 == Releases
+1.5.1
+* Loosen mail dependency to >= 2.0 instead of > 2.0
+
 1.5
 * Specify content-id of attachments as filename@hostname
 

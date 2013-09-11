@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pony}
-  s.version = "1.5"
+  s.version = "1.5.1"
 
   s.description = "Send email in one command: Pony.mail(:to => 'someone@example.com', :body => 'hello')"
   s.summary = s.description
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
-  s.add_dependency 'mail', '>2.0'
+  s.add_dependency 'mail', '>= 2.0'
   s.add_development_dependency "rspec", ">= 2.0.0"  
   s.platform = Gem::Platform::RUBY
 end
