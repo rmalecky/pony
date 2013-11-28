@@ -125,13 +125,11 @@ module Pony
 #   Pony.mail(:to => 'you@example.com', :cc => 'him@example.com', :from => 'me@example.com', :subject => 'hi', :body => 'Howsit!')
   def self.mail(options)
     options = @@options.merge options
-    raise(ArgumentError, ":to is required") unless options[:to]
+    fail ArgumentError, ':to is required' unless options[:to]
 
-    options[:via] = default_delivery_method unless options.has_key?(:via)
+    options[:via] = default_delivery_method unless options.key?(:via)
 
-    options = cross_reference_depricated_fields(options)
-
-    if options.has_key?(:via) && options[:via] == :sendmail
+    if options.key?(:via) && options[:via] == :sendmail
       options[:via_options] ||= {}
       options[:via_options][:location] ||= sendmail_binary
     end
@@ -140,28 +138,6 @@ module Pony
   end
 
   private
-
-  def self.cross_reference_depricated_fields(options)
-    if options.has_key?(:smtp)
-      warn depricated_message(:smtp, :via_options)
-      options[:via_options] = options.delete(:smtp)
-    end
-
-    # cross-reference pony options to be compatible with keys mail expects
-    { :host => :address, :user => :user_name, :auth => :authentication, :tls => :enable_starttls_auto }.each do |key, val|
-      if options[:via_options] && options[:via_options].has_key?(key)
-        warn depricated_message(key, val)
-        options[:via_options][val] = options[:via_options].delete(key)
-      end
-    end
-
-    if options[:content_type] && options[:content_type] =~ /html/ && !options[:html_body]
-      warn depricated_message(:content_type, :html_body)
-      options[:html_body] = options[:body]
-    end
-
-    return options
-  end
 
   def self.deliver(mail)
     mail.deliver!
@@ -172,16 +148,27 @@ module Pony
   end
 
   def self.build_mail(options)
-    mail = Mail.new do
-      to options[:to]
-      from options[:from] || 'pony@unknown'
-      cc options[:cc]
-      reply_to options[:reply_to]
-      bcc options[:bcc]
-      subject options[:subject]
-      date options[:date] || Time.now
-      message_id options[:message_id]
-      sender options[:sender] if options[:sender]
+    mail = Mail.new do |m|
+      options[:date] ||= Time.now
+      options[:from] ||= 'pony@unknown'
+      options[:via_options] ||= {}
+
+      non_standard_options = [
+        :attachments,
+        :body,
+        :charset,
+        :enable_starttls_auto,
+        :headers,
+        :html_body,
+        :text_part_charset,
+        :via,
+        :via_options,
+      ]
+
+      options.each do |k, v|
+        next if non_standard_options.include?(k)
+        m.send(k, v)
+      end
 
       if options[:html_body]
         html_part do
@@ -190,8 +177,8 @@ module Pony
         end
       end
 
-      # If we're using attachments, the body needs to be a separate part. If not,
-                        # we can just set the body directly.
+      # If we're using attachments, the body needs to be a separate
+      # part. If not, we can just set the body directly.
       if options[:body] && (options[:html_body] || options[:attachments])
         text_part do
           body options[:body]
@@ -200,25 +187,14 @@ module Pony
         body options[:body]
       end
 
-      delivery_method options[:via], (options.has_key?(:via_options) ? options[:via_options] : {})
-                end
-
-    (options[:attachments] || []).each do |name, body|
-      # mime-types wants to send these as "quoted-printable"
-      if name =~ /\.xlsx$/
-        mail.attachments[name] = {
-          :content => Base64.encode64(body),
-          :transfer_encoding => :base64
-        }
-      else
-        mail.attachments[name] = body
-      end
-      mail.attachments[name].add_content_id("<#{name}@#{Socket.gethostname}>")
+      delivery_method options[:via], options[:via_options]
     end
 
     (options[:headers] ||= {}).each do |key, value|
       mail[key] = value
     end
+
+    add_attachments(mail, options[:attachments]) if options[:attachments]
 
     mail.charset = options[:charset] if options[:charset] # charset must be set after setting content_type
 
@@ -229,14 +205,23 @@ module Pony
     mail
   end
 
+  def self.add_attachments(mail, attachments)
+    attachments.each do |name, body|
+      # mime-types wants to send these as "quoted-printable"
+      if name =~ /\.xlsx$/
+        mail.attachments[name] = {
+          content: Base64.encode64(body),
+          transfer_encoding: :base64
+        }
+      else
+        mail.attachments[name] = body
+      end
+      mail.attachments[name].add_content_id("<#{name}@#{Socket.gethostname}>")
+    end
+  end
+
   def self.sendmail_binary
     sendmail = `which sendmail`.chomp
     sendmail.empty? ? '/usr/sbin/sendmail' : sendmail
-  end
-
-  def self.depricated_message(method, alternative)
-    warning_message = "warning: '#{method}' is deprecated"
-    warning_message += "; use '#{alternative}' instead." if alternative
-    return warning_message
   end
 end

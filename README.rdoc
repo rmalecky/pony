@@ -91,6 +91,7 @@ Options passed pretty much directly to Mail
  body # the plain text body
  html_body # for sending html-formatted email
  subject
+ content_type
  charset # In case you need to send in utf-8 or similar
  text_part_charset # for multipart messages, set the charset of the text part
  attachments # see Attachments section above
@@ -98,6 +99,7 @@ Options passed pretty much directly to Mail
  message_id
  sender  # Sets "envelope from" (and the Sender header)
  reply_to
+ smtp_envelope_to
 
 Other options
  via # :smtp or :sendmail, see Transport section above
@@ -113,7 +115,9 @@ Default options can be set so that they don't have to be repeated. The default o
 
 == Help
 
-If you need help using Pony, or it looks like you've found a bug, we have a google group setup at: ponyrb@googlegroups.com.
+If you need help using Pony, or it looks like you've found a bug,
+email ponyrb@googlegroups.com.  The full forum is
+https://groups.google.com/forum/#!forum/ponyrb
 
 == External Dependencies
 
@@ -148,6 +152,9 @@ mailing list: ponyrb@googlegroups.com
 
 
 == Releases
+1.6
+* Unknown options are passed directly to mail to handle.  Remove deprecated syntax
+
 1.5.1
 * Loosen mail dependency to >= 2.0 instead of > 2.0
 

@@ -25,30 +25,19 @@ describe Pony do
     lambda { Pony.mail(:to => 'joe@example.com') }.should_not raise_error
   end
 
-  it "should handle depricated options gracefully" do
-    Pony.should_receive(:build_mail).with(hash_including(:via_options => {:address => 'test'}))
-    Pony.mail(:to => 'foo@bar', :smtp => { :host => 'test' }, :via => :smtp)
-  end
-
-  it "should handle depricated content-type gracefully" do
-    Pony.should_receive(:build_mail).with(hash_including(:html_body => "this is <h1>HTML</h1>"))
-    Pony.mail(:to => 'foo@bar', :content_type => 'text/html', :body => 'this is <h1>HTML</h1>')
-  end
-  ####################
-
   describe "builds a Mail object with field:" do
     it "to" do
       Pony.build_mail(:to => 'joe@example.com').to.should == [ 'joe@example.com' ]
     end
-    
+
     it "to with multiple recipients" do
       Pony.build_mail(:to => 'joe@example.com, friedrich@example.com').to.should == [ 'joe@example.com', 'friedrich@example.com' ]
     end
-    
+
     it "to with multiple recipients and names" do
       Pony.build_mail(:to => 'joe@example.com, "Friedrich Hayek" <friedrich@example.com>').to.should == [ 'joe@example.com', 'friedrich@example.com' ]
     end
-    
+
     it "to with multiple recipients and names in an array" do
       Pony.build_mail(:to => ['joe@example.com', '"Friedrich Hayek" <friedrich@example.com>']).to.should == [ 'joe@example.com', 'friedrich@example.com' ]
     end
@@ -56,11 +45,11 @@ describe Pony do
     it "cc" do
       Pony.build_mail(:cc => 'joe@example.com').cc.should == [ 'joe@example.com' ]
     end
-    
+
     it "reply_to" do
       Pony.build_mail(:reply_to => 'joe@example.com').reply_to.should == [ 'joe@example.com' ]
-    end    
-    
+    end
+
     it "cc with multiple recipients" do
       Pony.build_mail(:cc => 'joe@example.com, friedrich@example.com').cc.should == [ 'joe@example.com', 'friedrich@example.com' ]
     end
@@ -88,8 +77,8 @@ describe Pony do
     end
 
     it "default charset" do
-      Pony.build_mail(:body => 'body').charset.should == 'UTF-8'
-      Pony.build_mail(:body => 'body', :content_type => 'text/html').charset.should == 'UTF-8'
+      Pony.build_mail(body: 'body').charset.should eq 'UTF-8'
+      Pony.build_mail(html_body: 'body').charset.should eq 'UTF-8'
     end
 
     it "from (default)" do
@@ -101,22 +90,25 @@ describe Pony do
     end
 
     it "body" do
-      Pony.build_mail(:body => 'What do you know, Joe?').body.should == 'What do you know, Joe?'
+      Pony.build_mail(body: 'What do you know, Joe?').body.should
+        eq 'What do you know, Joe?'
     end
 
     it "html_body" do
-      Pony.build_mail(:html_body => 'What do you know, Joe?').parts.first.body.should == 'What do you know, Joe?'
-      Pony.build_mail(:html_body => 'What do you know, Joe?').parts.first.content_type.should == 'text/html; charset=UTF-8'
+      Pony.build_mail(html_body: 'What do you know, Joe?').parts.first.body.should
+        eq 'What do you know, Joe?'
+      Pony.build_mail(html_body: 'What do you know, Joe?').parts.first.content_type.should
+        eq 'text/html; charset=UTF-8'
+    end
+
+    it 'content_type' do
+      Pony.build_mail(content_type: 'multipart/related').content_type.should
+        eq 'multipart/related'
     end
 
     it "date" do
       now = Time.now
       Pony.build_mail(:date => now).date.should == DateTime.parse(now.to_s)
-    end
-
-    it "content_type of html should set html_body" do
-      Pony.should_receive(:build_mail).with(hash_including(:html_body => '<h1>test</h1>'))
-      Pony.mail(:to => 'foo@bar', :content_type => 'text/html', :body => '<h1>test</h1>')
     end
 
     it "message_id" do
