@@ -18,5 +18,5 @@ EOT
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.add_runtime_dependency 'mail', '>= 2.0'
-  s.add_development_dependency "rspec", ">= 2.0.0"
+  s.add_development_dependency "rspec", ">= 2.14"
 end
