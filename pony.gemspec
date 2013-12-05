@@ -2,13 +2,10 @@
 
 Gem::Specification.new do |s|
   s.name = 'pony'
-  s.version = "1.6"
+  s.version = "1.6.2"
 
-  s.summary = "Send email in one command: Pony.mail(:to => 'someone@example.com', :body => 'hello')Pony, the express way to send email in Ruby"
-  s.description = <<EOT
-Ruby no longer has to be jealous of PHP’s mail() function, which can send an email in a single command.
-Sending email is as easy as: Pony.mail(:to => 'someone@example.com', :body => 'hello')
-EOT
+  s.summary = "Send email in one command: Pony.mail(:to => 'someone@example.com', :body => 'hello')"
+  s.description = s.summary
   s.authors = ["Adam Wiggins", "Ben Prew"]
   s.email = 'ben@throwingbones.com'
   s.homepage = 'http://github.com/benprew/pony'

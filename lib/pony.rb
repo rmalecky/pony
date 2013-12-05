@@ -210,8 +210,8 @@ module Pony
       # mime-types wants to send these as "quoted-printable"
       if name =~ /\.xlsx$/
         mail.attachments[name] = {
-          content: Base64.encode64(body),
-          transfer_encoding: :base64
+          :content => Base64.encode64(body),
+          :transfer_encoding => :base64
         }
       else
         mail.attachments[name] = body
