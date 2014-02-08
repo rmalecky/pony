@@ -201,8 +201,27 @@ module Pony
     if mail.multipart? && options[:text_part_charset]
       mail.text_part.charset = options[:text_part_charset]
     end
-
+    set_content_type(mail, options[:content_type])
     mail
+  end
+
+  def self.set_content_type(mail, user_content_type)
+    params = mail.content_type_parameters || {}
+    content_type =  case
+    when user_content_type
+       user_content_type
+    when mail.has_attachments?
+      if mail.attachments.detect { |a| a.inline? }
+        ["multipart", "related", params]
+      else
+        ["multipart", "mixed", params]
+      end
+    when mail.multipart?
+      ["multipart", "alternative", params]
+    else
+      false
+    end
+    mail.content_type = content_type if content_type
   end
 
   def self.add_attachments(mail, attachments)
