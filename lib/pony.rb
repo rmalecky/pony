@@ -163,6 +163,8 @@ module Pony
         :text_part_charset,
         :via,
         :via_options,
+        :body_part_header,
+        :html_body_part_header
       ]
 
       options.each do |k, v|
@@ -174,6 +176,11 @@ module Pony
         html_part do
           content_type 'text/html; charset=UTF-8'
           body options[:html_body]
+          if options[:html_body_part_header] && options[:html_body_part_header].is_a?(Hash)
+            options[:html_body_part_header].each do |k,v|
+              header[k] = v
+            end
+          end
         end
       end
 
@@ -182,6 +189,11 @@ module Pony
       if options[:body] && (options[:html_body] || options[:attachments])
         text_part do
           body options[:body]
+          if options[:body_part_header] && options[:body_part_header].is_a?(Hash)
+            options[:body_part_header].each do |k,v|
+              header[k] = v
+            end
+          end
         end
       elsif options[:body]
         body options[:body]

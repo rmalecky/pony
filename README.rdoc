@@ -81,6 +81,20 @@ Pony allows you to specify custom mail headers
     :headers => { "List-ID" => "...", "X-My-Custom-Header" => "what a cool custom header" }
   )
 
+Add additional options for headers in each part of letter (text, html)
+  Pony.mail(
+    :body => 'test',
+    :html_body => 'What do you know, Joe?',
+    :attachments => {"foo.txt" => "content of foo.txt"},
+    :body_part_header => { content_disposition: "inline" }
+  )
+
+This will add option 'Content-Disposition: inline' for text part header of letter.
+
+Also you can add additional options for html part of latter, e.g.:
+  :html_body_part_header => { content_disposition: "inline" }
+
+
 == List Of Options
 
 Options passed pretty much directly to Mail
@@ -96,6 +110,8 @@ Options passed pretty much directly to Mail
  text_part_charset # for multipart messages, set the charset of the text part
  attachments # see Attachments section above
  headers # see Custom headers section above
+ body_part_header # see Custom headers section above
+ html_body_part_header # see Custom headers section above
  message_id
  sender  # Sets "envelope from" (and the Sender header)
  reply_to
