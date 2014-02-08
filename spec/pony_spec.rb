@@ -225,4 +225,22 @@ describe Pony do
     end
   end
 
+  describe "content type" do
+    context "mail with attachments, html_body and body " do
+      subject(:mail) do
+        Pony.build_mail(
+          :body => 'test',
+          :html_body => 'What do you know, Joe?',
+          :attachments => {"foo.txt" => "content of foo.txt"},
+        )
+      end
+
+      it { expect(mail.parts.length).to eq 3 }
+      it { expect(mail.content_type.to_s).to include( 'multipart/mixed' ) }
+      it { expect(mail.parts[0].to_s).to include( 'Content-Type: text/html' ) }
+      it { expect(mail.parts[1].to_s).to include( 'Content-Type: text/plain' ) }
+      it { expect(mail.parts[2].to_s).to include( 'Content-Type: text/plain' ) }
+    end
+  end
+
 end
