@@ -152,6 +152,9 @@ mailing list: ponyrb@googlegroups.com
 
 
 == Releases
+1.7
+* Better default content_type with attachments
+
 1.6
 * Unknown options are passed directly to mail to handle.  Remove deprecated syntax
 
