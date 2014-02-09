@@ -168,6 +168,9 @@ mailing list: ponyrb@googlegroups.com
 
 
 == Releases
+1.8
+* Add additional options for headers in each part of letter
+
 1.7
 * Better default content_type with attachments
 
