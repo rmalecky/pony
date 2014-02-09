@@ -243,4 +243,32 @@ describe Pony do
     end
   end
 
+  describe "additional headers" do
+    subject(:mail) do
+      Pony.build_mail(
+        :body => 'test',
+        :html_body => 'What do you know, Joe?',
+        :attachments => {"foo.txt" => "content of foo.txt"},
+        :body_part_header => { content_disposition: "inline"},
+        :html_body_part_header => { content_disposition: "inline"}
+      )
+    end
+
+    it { expect(mail.parts[0].to_s).to include( 'inline' ) }
+    it { expect(mail.parts[1].to_s).to include( 'inline' ) }
+
+    context "when parts aren't present" do
+      subject(:mail) do
+        Pony.build_mail(
+          :body => 'test',
+          :body_part_header => { content_disposition: "inline"},
+          :html_body_part_header => { content_disposition: "inline"}
+        )
+      end
+
+      it { expect(mail.parts).to be_empty }
+      it { expect(mail.to_s).to_not include( 'inline' ) }
+    end
+  end
+
 end
