@@ -25,6 +25,10 @@ describe Pony do
     expect{ Pony.mail(:to => 'joe@example.com') }.to_not raise_error
   end
 
+  it 'can list its available options' do
+    expect( Pony.permissable_options ).to include(:to, :body)
+  end
+
   describe "builds a Mail object with field:" do
     it "to" do
       expect(Pony.build_mail(:to => 'joe@example.com').to).to eq [ 'joe@example.com' ]

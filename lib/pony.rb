@@ -106,6 +106,8 @@ module Pony
 
   @@options = {}
 
+
+
 # Default options can be set so that they don't have to be repeated.
 #
 #   Pony.options = { :from => 'noreply@example.com', :via => :smtp, :via_options => { :host => 'smtp.yourserver.com' } }
@@ -137,6 +139,10 @@ module Pony
     deliver build_mail(options)
   end
 
+  def self.permissable_options
+    standard_options + non_standard_options
+  end
+
   private
 
   def self.deliver(mail)
@@ -147,28 +153,45 @@ module Pony
     File.executable?(sendmail_binary) ? :sendmail : :smtp
   end
 
+  def self.standard_options
+    [
+      :to,
+      :cc,
+      :bcc,
+      :from,
+      :subject,
+      :content_type,
+      :message_id,
+      :sender,
+      :reply_to,
+      :smtp_envelope_to
+    ]
+  end
+
+  def self.non_standard_options
+    [
+      :attachments,
+      :body,
+      :charset,
+      :enable_starttls_auto,
+      :headers,
+      :html_body,
+      :text_part_charset,
+      :via,
+      :via_options,
+      :body_part_header,
+      :html_body_part_header
+    ]
+  end
+
   def self.build_mail(options)
     mail = Mail.new do |m|
       options[:date] ||= Time.now
       options[:from] ||= 'pony@unknown'
       options[:via_options] ||= {}
 
-      non_standard_options = [
-        :attachments,
-        :body,
-        :charset,
-        :enable_starttls_auto,
-        :headers,
-        :html_body,
-        :text_part_charset,
-        :via,
-        :via_options,
-        :body_part_header,
-        :html_body_part_header
-      ]
-
       options.each do |k, v|
-        next if non_standard_options.include?(k)
+        next if Pony.non_standard_options.include?(k)
         m.send(k, v)
       end
 
