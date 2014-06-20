@@ -97,7 +97,12 @@ Also you can add additional options for html part of latter, e.g.:
 
 == List Of Options
 
+You can get a list of options from Pony directly:
+
+  Pony.permissable_options
+
 Options passed pretty much directly to Mail
+
  to
  cc
  bcc
@@ -168,6 +173,9 @@ mailing list: ponyrb@googlegroups.com
 
 
 == Releases
+1.9
+* Allow options to be queried from the gem
+
 1.8
 * Add additional options for headers in each part of letter
 

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/base'
 describe Pony do
 
   before(:each) do
-    Pony.stub(:deliver)
+    allow(Pony).to receive(:deliver)
   end
 
   it "sends mail" do
@@ -163,13 +163,13 @@ describe Pony do
 
   describe "transport" do
     it "transports via smtp if no sendmail binary" do
-      Pony.stub(:sendmail_binary).and_return('/does/not/exist')
+      allow(Pony).to receive(:sendmail_binary).and_return('/does/not/exist')
       expect(Pony).to receive(:build_mail).with(hash_including(:via => :smtp))
       Pony.mail(:to => 'foo@bar')
     end
 
     it "defaults to sendmail if no via is specified and sendmail exists" do
-      File.stub(:executable?).and_return(true)
+      allow(File).to receive(:executable?).and_return(true)
       expect(Pony).to receive(:build_mail).with(hash_including(:via => :sendmail))
       Pony.mail(:to => 'foo@bar')
     end
@@ -203,7 +203,7 @@ describe Pony do
 
   describe "sendmail binary location" do
     it "should default to /usr/sbin/sendmail if not in path" do
-      Pony.stub(:'`').and_return('')
+      allow(Pony).to receive(:'`').and_return('')
       expect(Pony.sendmail_binary).to eq '/usr/sbin/sendmail'
     end
   end
