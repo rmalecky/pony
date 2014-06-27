@@ -105,6 +105,7 @@ require 'socket'
 module Pony
 
   @@options = {}
+  @@override_options = {}
 
 
 
@@ -121,12 +122,21 @@ module Pony
     @@options
   end
 
+  def self.override_options=(value)
+    @@override_options = value
+  end
+
+  def self.override_options
+    @@override_options
+  end
+
 # Send an email
 #   Pony.mail(:to => 'you@example.com', :from => 'me@example.com', :subject => 'hi', :body => 'Hello there.')
 #   Pony.mail(:to => 'you@example.com', :html_body => '<h1>Hello there!</h1>', :body => "In case you can't read html, Hello there.")
 #   Pony.mail(:to => 'you@example.com', :cc => 'him@example.com', :from => 'me@example.com', :subject => 'hi', :body => 'Howsit!')
   def self.mail(options)
     options = @@options.merge options
+    options = options.merge @@override_options
     fail ArgumentError, ':to is required' unless options[:to]
 
     options[:via] = default_delivery_method unless options.key?(:via)
