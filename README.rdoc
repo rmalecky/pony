@@ -137,7 +137,7 @@ Default options can be set so that they don't have to be repeated. The default o
 
 == Set override options
 
-Override options can be set so that the override value is always be used, even if a different value is passed in via Pony.options() or Pony.mail(). This can be used to configure a development or staging environment.
+Override options can be set so that the override value is always be used, even if a different value is passed in to Pony.options() or Pony.mail(). This can be used to configure a development or staging environment.
 
   Pony.override_options = { :to => 'test@example.com' }
   Pony.mail(:to => 'foo@bar') # Sends mail to test@example.com instead of foo@bar
