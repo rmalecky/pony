@@ -142,6 +142,17 @@ Override options can be set so that the override value is always be used, even i
   Pony.override_options = { :to => 'test@example.com' }
   Pony.mail(:to => 'foo@bar') # Sends mail to test@example.com instead of foo@bar
 
+== Set subject prefix
+
+Prepends a string to the subject line.  This is used to identify email sent from a specific environment.
+
+  Pony.subject_prefix('Prefix:')
+
+== Append options to body
+
+Append the options passd into Pony.mail to the body of the email.  Useful for debugging.
+
+  Pony.append_inputs
 
 == Help
 
