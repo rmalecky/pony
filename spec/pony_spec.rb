@@ -250,7 +250,6 @@ describe Pony do
 
       Pony.override_options = { :from => 'reply@pony.com' }
       Pony.mail(:to => 'foo@bar', :from => 'other_address@pony.com')
-
     end
 
     it "should return the orride options" do
@@ -260,6 +259,45 @@ describe Pony do
 
       expect(output).to eq input
     end
+  end
+
+  describe "subject prefix" do
+    after(:all) do
+      Pony.subject_prefix(false)
+    end
+
+    it "should prefix email subject line with the given text" do
+      expect(Pony).to receive(:build_mail).with(hash_including(:subject => 'First: Second'))
+
+      Pony.subject_prefix('First: ')
+      Pony.mail(:to => 'foo@bar', :subject => 'Second')
+    end
+
+    it "should set the prefix as the subject if no subject is given" do
+      expect(Pony).to receive(:build_mail).with(hash_including(:subject => 'First: '))
+
+      Pony.subject_prefix('First: ')
+      Pony.mail(:to => 'foo@bar')
+    end
+  end
+
+  describe "append_inputs" do
+    it "appends the options passed into Pany.mail to the body" do
+      expect(Pony).to receive(:build_mail).with(hash_including(:body => "body/n {:to=>\"foo@bar\", :body=>\"body\"}"))
+
+      Pony.append_inputs
+
+      Pony.mail(:to => 'foo@bar', :body => 'body')
+    end
+
+    it "sets the options passed into Pany.mail as the body if one is not present" do
+      expect(Pony).to receive(:build_mail).with(hash_including(:body => "/n {:to=>\"foo@bar\"}"))
+
+      Pony.append_inputs
+
+      Pony.mail(:to => 'foo@bar')
+    end
+
   end
 
   describe "content type" do
