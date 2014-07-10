@@ -134,6 +134,26 @@ Default options can be set so that they don't have to be repeated. The default o
   Pony.mail(:to => 'foo@bar') # Sends mail to foo@bar from noreply@example.com using smtp
   Pony.mail(:from => 'pony@example.com', :to => 'foo@bar') # Sends mail to foo@bar from pony@example.com using smtp
 
+
+== Set override options
+
+Override options can be set so that the override value is always be used, even if a different value is passed in to Pony.options() or Pony.mail(). This can be used to configure a development or staging environment.
+
+  Pony.override_options = { :to => 'test@example.com' }
+  Pony.mail(:to => 'foo@bar') # Sends mail to test@example.com instead of foo@bar
+
+== Set subject prefix
+
+Prepends a string to the subject line.  This is used to identify email sent from a specific environment.
+
+  Pony.subject_prefix('Prefix:')
+
+== Append options to body
+
+Append the options passd into Pony.mail to the body of the email.  Useful for debugging.
+
+  Pony.append_inputs
+
 == Help
 
 If you need help using Pony, or it looks like you've found a bug,
