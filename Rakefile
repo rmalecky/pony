@@ -26,4 +26,8 @@ task :uninstall => [ :clean ] do
 	sh %{sudo gem uninstall #{name}}
 end
 
+task :authors do
+  sh %{git log |grep Author |cut -f 1 -d'<' |cut -f2 -d':' |sort -u}
+end
+
 CLEAN.include [ 'pkg', '*.gem', '.config' ]

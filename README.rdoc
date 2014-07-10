@@ -173,18 +173,28 @@ Maintained by Ben Prew
 Written by Adam Wiggins
 
 Patches contributed by:
-Arun Thampi,
-Hiroshi Saito,
-Jesse Cooke,
-Mathieu Martin,
-Neil Mock,
-Nickolas Means,
-Othmane Benkirane,
-Rick Olson
-Stephen Celis,
-Thomas Hurst,
-Kalin Harvey
-Carl Hörberg
+* Adam Wiggins
+* Ben Prew
+* Cameron Matheson
+* Carl Hörberg
+* Daniel Lopes
+* Hiroshi Saito
+* Kalin Harvey
+* MIKAMI Yoshiyuki
+* Mathieu Martin
+* Michael Durrant
+* Neil Middleton
+* Neil Mock
+* Nickolas Means
+* Othmane Benkirane
+* Rich Meyers
+* Roman Franko
+* Ryan Malecky
+* Seamus Abshere
+* Stephen Celis
+* arunthampi
+* rick
+* rohit
 
 Released under the MIT License: http://www.opensource.org/licenses/mit-license.php
 
@@ -193,6 +203,9 @@ mailing list: ponyrb@googlegroups.com
 
 
 == Releases
+1.10
+* Add subject_prefix, append_options and override_options
+
 1.9
 * Allow options to be queried from the gem
 
