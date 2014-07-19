@@ -165,14 +165,13 @@ If you need help using Pony, or it looks like you've found a bug,
 email ponyrb@googlegroups.com.  The full forum is
 https://groups.google.com/forum/#!forum/ponyrb
 
+### Meta ###
+
+* Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
+* [Homepage](http://github.com/benprew/pony)
+* Mailing List: ponyrb@googlegroups.com
+
 ## Authors ##
-
-Maintained by Ben Prew
-
-Written by Adam Wiggins
-
-Patches contributed by:
-
 * Adam Wiggins
 * Ben Prew
 * Cameron Matheson
@@ -195,10 +194,6 @@ Patches contributed by:
 * arunthampi
 * rick
 * rohit
-
-* Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
-* [Homepage](http://github.com/benprew/pony)
-* Mailing List: ponyrb@googlegroups.com
 
 ## Changelog ##
 
