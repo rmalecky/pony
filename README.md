@@ -172,28 +172,28 @@ https://groups.google.com/forum/#!forum/ponyrb
 * Mailing List: ponyrb@googlegroups.com
 
 ## Authors ##
-* Adam Wiggins
-* Ben Prew
-* Cameron Matheson
-* Carl Hörberg
-* Daniel Lopes
-* Hiroshi Saito
-* Kalin Harvey
-* MIKAMI Yoshiyuki
-* Mathieu Martin
-* Michael Durrant
-* Neil Middleton
-* Neil Mock
-* Nickolas Means
-* Othmane Benkirane
-* Rich Meyers
-* Roman Franko
-* Ryan Malecky
-* Seamus Abshere
-* Stephen Celis
-* arunthampi
-* rick
-* rohit
+*  Adam Wiggins  [@adamwiggins](https://github.com/adamwiggins)
+*  Ben Prew  [@benprew](https://github.com/benprew)
+*  Cameron Matheson  [@cmatheson](https://github.com/cmatheson)
+*  Carl Hörberg  [@carlhoerberg](https://github.com/carlhoerberg)
+*  Daniel Lopes  [@danielvlopes](https://github.com/danielvlopes)
+*  Hiroshi Saito  [@hiroshi](https://github.com/hiroshi)
+*  Kalin Harvey
+*  MIKAMI Yoshiyuki  [@yoshuki](https://github.com/yoshuki)
+*  Mathieu Martin  [@webmat](https://github.com/webmat)
+*  Michael Durrant  [@durrantm](https://github.com/durrantm)
+*  Neil Middleton  [@neilmiddleton](https://github.com/neilmiddleton)
+*  Neil Mock  [@neilmock](https://github.com/neilmock)
+*  Nickolas Means  [@nmeans](https://github.com/nmeans)
+*  Othmane Benkirane  [@anaothmane](https://github.com/anaothmane)
+*  Rich Meyers  [@richmeyers](https://github.com/richmeyers)
+*  Roman Franko  [@roman-franko](https://github.com/roman-franko)
+*  Ryan Malecky  [@rmalecky](https://github.com/rmalecky)
+*  Seamus Abshere  [@seamusabshere](https://github.com/seamusabshere)
+*  Stephen Celis  [@stephencelis](https://github.com/stephencelis)
+*  arunthampi  [@arunthampi](https://github.com/arunthampi)
+*  rick  [@rick](https://github.com/rick)
+*  rohit  [@rohit](https://github.com/rohit)
 
 ## Changelog ##
 
