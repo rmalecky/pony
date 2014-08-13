@@ -1,3 +1,6 @@
+todo: fix bug with addachment but blank body
+
+
 = Pony, the express way to send email in Ruby
 
 == Overview
