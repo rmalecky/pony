@@ -245,14 +245,14 @@ describe Pony do
       Pony.mail(:to => 'foo@bar')
     end
 
-    it "should use an overide instead of a passed in value" do
+    it "should use an override instead of a passed in value" do
       expect(Pony).to receive(:build_mail).with(hash_including(:from => 'reply@pony.com'))
 
       Pony.override_options = { :from => 'reply@pony.com' }
       Pony.mail(:to => 'foo@bar', :from => 'other_address@pony.com')
     end
 
-    it "should return the orride options" do
+    it "should return the override options" do
       input = { :from => 'reply@pony' }
       Pony.override_options = input
       output = Pony.override_options

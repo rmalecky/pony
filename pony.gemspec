@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'pony'
-  s.version = "1.9"
+  s.version = "1.10"
 
   s.summary = "Send email in one command: Pony.mail(:to => 'someone@example.com', :body => 'hello')"
   s.description = s.summary
@@ -16,4 +16,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.add_runtime_dependency 'mail', '>= 2.0'
   s.add_development_dependency "rspec", ">= 2.14"
+  s.add_development_dependency "rake", ">= 10"
 end

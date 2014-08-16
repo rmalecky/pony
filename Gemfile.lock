@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pony (1.9)
+    pony (1.10)
       mail (>= 2.0)
 
 GEM
@@ -11,6 +11,7 @@ GEM
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     mime-types (2.3)
+    rake (10.1.1)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -29,4 +30,5 @@ PLATFORMS
 
 DEPENDENCIES
   pony!
+  rake (>= 10)
   rspec (>= 2.14)
